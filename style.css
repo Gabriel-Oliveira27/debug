@@ -945,7 +945,7 @@ input:checked + .slider:before {
 .poster-value-container {
   display: flex;
   align-items: flex-start;
-  gap: 2px;
+  gap: 0; /* Ajuste aqui - gap zerado para não empurrar o ,90 */
 }
 
 /* Parte inteira: grande e esticada (+20% = 240pt) */
@@ -971,14 +971,14 @@ input:checked + .slider:before {
   transform-origin: left center;
   margin-top: 0;
   padding-top: 0;
-  margin-left: 3.8px; /* Vírgula mais 15% perto (reduzido de 4.5px) */
+  margin-left: -18px;
 }
 
 /* Validade por extenso - girada 270° no canto direito */
 .poster-validity {
   position: absolute;
-  right: 0.8cm; /* Posicionado no canto direito */
-  top: 5.5cm; /* Fim da frase alinhado com altura da descrição (poster-subtitle aprox 4-5cm) */
+  right: 1.0cm; /* 20% mais à esquerda (de 0.8cm para 1.0cm) */
+  top: 3.2cm; /* Ajuste aqui - sobe mais para alinhar próximo ao topo da descrição */
   font-family: 'Lato', Arial, sans-serif;
   font-size: 11pt;
   font-weight: 700;
