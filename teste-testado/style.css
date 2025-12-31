@@ -860,7 +860,7 @@ input:checked + .slider:before {
 /* Nome/Subdesc/Características/Código: 4cm de cima, 15% mais à esquerda */
 .poster-header {
   position: absolute;
-  top: 4cm;
+  top: 5cm;
   left: 2.55cm; /* Reduzido 15% de 3cm = 2.55cm */
   right: 3cm;
 }
@@ -978,7 +978,7 @@ input:checked + .slider:before {
 .poster-validity {
   position: absolute;
   right: 1.0cm; /* 20% mais à esquerda (de 0.8cm para 1.0cm) */
-  top: 3.2cm; /* Ajuste aqui - sobe mais para alinhar próximo ao topo da descrição */
+  top: 4cm; /* Ajuste aqui - sobe mais para alinhar próximo ao topo da descrição */
   font-family: 'Lato', Arial, sans-serif;
   font-size: 11pt;
   font-weight: 700;
