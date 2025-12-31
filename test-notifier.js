@@ -13,6 +13,7 @@ const TEST_NOTIFIER_CONFIG = {
     // 🔗 Caminho do teste (pode ser URL relativa ou absoleta)
     testPath: 'teste-testado/index.html',
     
+    
     // 📝 Nome do teste (opcional - aparece no tooltip)
     testName: 'Novo Teste Disponível',
     
