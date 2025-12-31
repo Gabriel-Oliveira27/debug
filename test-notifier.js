@@ -8,7 +8,7 @@
  */
 const TEST_NOTIFIER_CONFIG = {
     // ⚙️ Ative ou desative o notificador (true = ativado, false = desativado)
-    enabled: false,
+    enabled: true,
     
     // 🔗 Caminho do teste (pode ser URL relativa ou absoleta)
     testPath: 'Testes/index.html',
