@@ -956,7 +956,7 @@ input:checked + .slider:before {
   color: #000;
   line-height: 0.8;
   letter-spacing: -4px;
-  transform: scaleX(0.85);
+  transform: scaleX(0.70) scaleY(1.15); /* Ajuste aqui - mais estreita (0.70) e mais alta (1.15) */
   transform-origin: left center;
 }
 
@@ -967,11 +967,11 @@ input:checked + .slider:before {
   font-weight: 700;
   color: #000;
   line-height: 0.8;
-  transform: scaleX(0.85);
+  transform: scaleX(0.85); /* Ajuste aqui - volta ao original, SEM scaleY */
   transform-origin: left center;
   margin-top: 0;
   padding-top: 0;
-  margin-left: -18px;
+  margin-left: -100px; /* Ajuste aqui - ainda mais próximo (aumentado de -80px para -100px) */
 }
 
 /* Validade por extenso - girada 270° no canto direito */
