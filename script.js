@@ -17,6 +17,11 @@ const FATORES = {
     }
 };
 
+// Função para formatar número com separador de milhar
+function formatarMilhar(numero) {
+    return numero.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
 let products = [];
 
 // ==================================================
@@ -653,7 +658,7 @@ function generatePosterHTML(product, isPreview = false) {
                     <div class="poster-currency">R$</div>
                 </div>
                 <div class="poster-value-container">
-                    <div class="poster-value-integer" style="font-size: ${fontSizeParcela};">${parcelaInteiro}</div>
+                    <div class="poster-value-integer" style="font-size: ${fontSizeParcela};">${formatarMilhar(parcelaInteiro)}</div>
                     <div class="poster-value-decimal">,${String(parcelaCentavos).padStart(2, '0')}</div>
                 </div>
             </div>
@@ -663,7 +668,7 @@ function generatePosterHTML(product, isPreview = false) {
                     <div class="poster-currency">R$</div>
                 </div>
                 <div class="poster-value-container">
-                    <div class="poster-value-integer" style="font-size: ${fontSizeAvista};">${avistaInteiro}</div>
+                    <div class="poster-value-integer" style="font-size: ${fontSizeAvista};">${formatarMilhar(avistaInteiro)}</div>
                     <div class="poster-value-decimal">,${String(Math.round((product.avista - Math.floor(product.avista)) * 100)).padStart(2, '0')}</div>
                 </div>
             </div>
@@ -875,7 +880,103 @@ document.addEventListener('keydown', (e) => {
 document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
     updateHeader('gerar');
+    
+    // Botão Debug
+    const btnDebug = document.getElementById('btn-debug');
+    if (btnDebug) {
+        btnDebug.addEventListener('click', gerarCartazesDebug);
+    }
 });
+
+// ==================================================
+// FUNÇÃO DEBUG - GERA CARTAZES DE TESTE
+// ==================================================
+function gerarCartazesDebug() {
+    // Produtos fantasia
+    const produtosFantasia = [
+        {
+            descricao: 'Sofá Retrátil 3 Lugares',
+            subdescricao: 'Tecido Suede Premium',
+            caracteristicas: 'Conforto | Design Moderno | Garantia 2 Anos',
+            codigo: '47882',
+            avista: 2499.00
+        },
+        {
+            descricao: 'Guarda-Roupa Casal 6 Portas',
+            subdescricao: 'Com Espelho e Gavetas',
+            caracteristicas: 'MDF | Acabamento Fosco | 3 Gavetas',
+            codigo: '43223',
+            avista: 1899.00
+        },
+        {
+            descricao: 'Conjunto de Jantar Elegance',
+            subdescricao: 'Mesa + 6 Cadeiras Estofadas',
+            caracteristicas: 'Madeira Maciça | Estilo Clássico | Alta Durabilidade',
+            codigo: '48433/43322',
+            avista: 3299.00
+        }
+    ];
+    
+    // Escolhe um produto aleatório
+    const produtoAleatorio = produtosFantasia[Math.floor(Math.random() * produtosFantasia.length)];
+    
+    // Mostra overlay de loading
+    const overlay = document.getElementById('overlay');
+    const overlayTexto = document.getElementById('overlay-texto');
+    overlay.classList.add('active');
+    overlayTexto.textContent = 'Gerando cartazes de debug...';
+    
+    // Simula preenchimento dos campos e geração
+    setTimeout(() => {
+        // Gera data de validade (15 dias a partir de hoje)
+        const dataValidade = new Date();
+        dataValidade.setDate(dataValidade.getDate() + 15);
+        const validadeFormatada = dataValidade.toISOString().split('T')[0];
+        
+        // Gera 2 produtos: um com carnê e outro com cartão
+        const modalidades = ['carne', 'cartao'];
+        
+        modalidades.forEach((modalidade, index) => {
+            const metodoExibicao = modalidade === 'carne' ? 'Carnê' : 'Cartão';
+            const numParcelas = 12;
+            const fator = FATORES[modalidade][numParcelas];
+            const valorParcela = produtoAleatorio.avista * fator;
+            
+            const produtoDebug = {
+                codigo: produtoAleatorio.codigo,
+                descricao: produtoAleatorio.descricao,
+                subdescricao: produtoAleatorio.subdescricao,
+                caracteristicas: produtoAleatorio.caracteristicas,
+                features: produtoAleatorio.caracteristicas.split(' | '), // Converte string em array
+                avista: produtoAleatorio.avista,
+                modalidade: modalidade,
+                metodo: `${numParcelas}x`,
+                parcela: valorParcela,
+                taxa: modalidade === 'carne' ? '6,9% a.m.' : '2,92% a.m.',
+                tipoModalidade: metodoExibicao,
+                validade: validadeFormatada,
+                juros: modalidade // Adiciona juros para exibição correta
+            };
+            
+            products.push(produtoDebug);
+        });
+        
+        // Atualiza a interface
+        renderProducts();
+        
+        // Esconde overlay
+        overlay.classList.remove('active');
+        
+        // Mostra toast de sucesso
+        showToast('success', 'Debug Executado!', `2 cartazes de teste gerados com sucesso (Carnê e Cartão)`);
+        
+        // Muda para a view de produtos
+        const navProdutos = document.querySelector('[data-view="produtos"]');
+        if (navProdutos) {
+            navProdutos.click();
+        }
+    }, 1500);
+}
 
 // ==================================================
 // SISTEMA DE TOASTS
