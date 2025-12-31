@@ -32,6 +32,20 @@
                 <span class="badge-dot"></span>
                 <span class="badge-text">Repositório DEBUG</span>
             </div>
+
+            <!-- Área de testes (inicialmente vazia) -->
+            <div class="tests-area" id="testsArea" style="display: none;">
+                <div class="tests-header">
+                    <h2>Testes Ativos</h2>
+                    <button class="btn-add-test" id="btnAddTest" aria-label="Adicionar teste">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="tests-grid" id="testsGrid"></div>
+            </div>
         </div>
     </main>
 
@@ -89,6 +103,123 @@
         </a>
     </div>
 
+    <!-- Botão de toggle de tema -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+
+    <!-- Botão de debug panel -->
+    <button class="debug-toggle" id="debugToggle" aria-label="Painel de debug">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="9" y1="9" x2="15" y2="9"></line>
+            <line x1="9" y1="15" x2="15" y2="15"></line>
+        </svg>
+    </button>
+
+    <!-- Painel de Debug -->
+    <div class="debug-panel" id="debugPanel">
+        <div class="debug-header">
+            <h3>Painel de Debug</h3>
+            <button class="debug-close" id="debugClose" aria-label="Fechar">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <div class="debug-tabs">
+            <button class="debug-tab active" data-tab="system">Sistema</button>
+            <button class="debug-tab" data-tab="console">Console</button>
+            <button class="debug-tab" data-tab="network">Rede</button>
+        </div>
+
+        <div class="debug-content">
+            <!-- Tab Sistema -->
+            <div class="debug-tab-content active" id="tabSystem">
+                <div class="debug-info-grid">
+                    <div class="debug-info-item">
+                        <span class="debug-label">Navegador:</span>
+                        <span class="debug-value" id="browserInfo">-</span>
+                    </div>
+                    <div class="debug-info-item">
+                        <span class="debug-label">Resolução:</span>
+                        <span class="debug-value" id="resolutionInfo">-</span>
+                    </div>
+                    <div class="debug-info-item">
+                        <span class="debug-label">User Agent:</span>
+                        <span class="debug-value small" id="userAgentInfo">-</span>
+                    </div>
+                    <div class="debug-info-item">
+                        <span class="debug-label">Conexão:</span>
+                        <span class="debug-value" id="connectionInfo">-</span>
+                    </div>
+                    <div class="debug-info-item">
+                        <span class="debug-label">Cookies:</span>
+                        <span class="debug-value" id="cookiesInfo">-</span>
+                    </div>
+                    <div class="debug-info-item">
+                        <span class="debug-label">Local Storage:</span>
+                        <span class="debug-value" id="storageInfo">-</span>
+                    </div>
+                </div>
+                <button class="btn-copy-info" id="btnCopyInfo">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                    Copiar Informações
+                </button>
+            </div>
+
+            <!-- Tab Console -->
+            <div class="debug-tab-content" id="tabConsole">
+                <div class="console-output" id="consoleOutput"></div>
+                <button class="btn-clear-console" id="btnClearConsole">Limpar Console</button>
+            </div>
+
+            <!-- Tab Network -->
+            <div class="debug-tab-content" id="tabNetwork">
+                <div class="debug-info-grid">
+                    <div class="debug-info-item">
+                        <span class="debug-label">Tipo de Conexão:</span>
+                        <span class="debug-value" id="connectionType">-</span>
+                    </div>
+                    <div class="debug-info-item">
+                        <span class="debug-label">Velocidade Estimada:</span>
+                        <span class="debug-value" id="connectionSpeed">-</span>
+                    </div>
+                    <div class="debug-info-item">
+                        <span class="debug-label">Status:</span>
+                        <span class="debug-value" id="onlineStatus">-</span>
+                    </div>
+                    <div class="debug-info-item">
+                        <span class="debug-label">Latência:</span>
+                        <span class="debug-value" id="latencyInfo">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container de notificações -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="test-notifier.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
